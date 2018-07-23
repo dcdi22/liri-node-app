@@ -11,6 +11,8 @@ var client = new Twitter(keys.twitter);
 var command = process.argv[2];
 var input = process.argv[3];
 
+console.log("Please use one of the following commands:" + "\n" + "`my-tweets`" + "\n" + "`spotify-this-song`" + "\n" + "`movie-this`" + "\n" + "`do-what-it-says`" + "\n")
+
 switch (command) {
     case "my-tweets":
         grabTweets()
@@ -38,7 +40,8 @@ function grabTweets() {
         if (error) { // if there IS an error
             console.log('Error occurred: ' + error);
         } else { // if there is NO error
-            console.log("My 20 Most Recent Tweets");
+            console.log("///////////// " + " " + "TWITTER: " + " " + "/////////////")
+            console.log("\nMy 20 Most Recent Tweets");
             console.log("");
 
             for (var i = 0; i < tweets.length; i++) {
@@ -46,6 +49,7 @@ function grabTweets() {
                 console.log("Created:  " + tweets[i].created_at);
                 console.log("");
             }
+            console.log("///////////// " + "////////// " + "/////////////")
         }
     });
 
@@ -72,12 +76,13 @@ function grabSpotify() {
             return;
         } else {
             var songInfo = data.tracks.items[0];
-            console.log(" " + " " + "SPOTIFY RESULTS: " + " " + " ")
-            console.log("ARTIST:", songInfo.artists[0].name);
+            console.log("///////////// " + " " + "SPOTIFY RESULTS: " + " " + "/////////////")
+            console.log("\nARTIST:", songInfo.artists[0].name);
             console.log("SONG:", songInfo.name);
             console.log("ALBUM:", songInfo.album.name);
             console.log("PREVIEW:", songInfo.preview_url);
-            fs.appendFile("log.txt", songInfo.artists[0].name + songInfo.name + songInfo.album.name + songInfo.preview_url, function(err) { 
+            console.log("\n///////////// " + "////////////////// " + "/////////////")
+            fs.appendFile("log.txt", "\n" + "\n" + songInfo.artists[0].name + "\n" + songInfo.name + "\n" + songInfo.album.name + "\n" + songInfo.preview_url, function(err) { 
                 if (err) {
                     console.log("ERROR")
                 }
@@ -101,15 +106,17 @@ function grabMovie() {
             //console.log(body);
             //console.log(JSON.parse(body));
             var movieInfo = JSON.parse(body);
-            console.log("Title: " + movieInfo.Title);
-            console.log("Year: " + movieInfo.Year);
+            console.log("///////////// " + " " + "OMDB RESULTS: " + " " + "/////////////")
+            console.log("\nTITLE: " + movieInfo.Title);
+            console.log("YEAR: " + movieInfo.Year);
             console.log("IMDB: " + movieInfo.Ratings[0].Value);
-            console.log("Rotten Tomatoes: " + movieInfo.Ratings[1].Value);
-            console.log("Country: " + movieInfo.Country);
-            console.log("Language: " + movieInfo.Language);
-            console.log("Plot: " + movieInfo.Plot);
-            console.log("Actors: " + movieInfo.Actors);
-            fs.appendFile("log.txt", movieInfo.Title + movieInfo.Year + movieInfo.Country + movieInfo.Language + movieInfo.Plot + movieInfo.Actors, function(err) { 
+            console.log("ROTTEN TOMATOES: " + movieInfo.Ratings[1].Value);
+            console.log("COUNTRY: " + movieInfo.Country);
+            console.log("LANGUAGE: " + movieInfo.Language);
+            console.log("PLOT: " + movieInfo.Plot);
+            console.log("ACTORS: " + movieInfo.Actors);
+            console.log("\n///////////// " + "////////////// " + "/////////////");
+            fs.appendFile("log.txt", "\n" + "\n" + movieInfo.Title + "\n" + movieInfo.Year + "\n" + movieInfo.Country + "\n" + movieInfo.Language + "\n" + movieInfo.Plot + "\n" + movieInfo.Actors, function(err) { 
                 if (err) {
                     console.log("ERROR")
                 }
